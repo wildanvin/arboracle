@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 
-import { Address, Balance, Events } from "../components";
+import { Address, Balance /*Events*/ } from "../components";
 
 import brazil from "../images/brazil.jpg";
 import costaRica from "../images/costaRica.jpg";
@@ -25,9 +25,9 @@ export default function ProjectCard({
 
   let display = "";
 
-  if (image2Display == "brazil") {
+  if (image2Display === "brazil") {
     display = brazil;
-  } else if (image2Display == "costaRica") {
+  } else if (image2Display === "costaRica") {
     display = costaRica;
   } else {
     display = colombia;
