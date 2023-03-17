@@ -29,7 +29,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { getRPCPollTime, Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph } from "./views";
+import { Home, ExampleUI, Hints, Subgraph, ProjectCard } from "./views";
 import { useStaticJsonRPC, useGasPrice } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -327,6 +327,48 @@ function App(props) {
       <Switch>
         <Route exact path="/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+            <ProjectCard
+              image2Display={"colombia"}
+              address={address}
+              userSigner={userSigner}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              price={price}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+              purpose={purpose}
+            />
+            <ProjectCard
+              image2Display={"costaRica"}
+              address={address}
+              userSigner={userSigner}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              price={price}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+              purpose={purpose}
+            />
+            <ProjectCard
+              image2Display={"brazil"}
+              address={address}
+              userSigner={userSigner}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              price={price}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+              purpose={purpose}
+            />
+          </div>
+
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
         </Route>
         <Route exact path="/debug">
@@ -364,18 +406,6 @@ function App(props) {
         </Route>
         <Route path="/exampleui">
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-            <ExampleUI
-              address={address}
-              userSigner={userSigner}
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
-              price={price}
-              tx={tx}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-              purpose={purpose}
-            />
             <ExampleUI
               address={address}
               userSigner={userSigner}
