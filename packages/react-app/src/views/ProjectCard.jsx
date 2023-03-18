@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 
-import { Address, Balance /*Events*/ } from "../components";
+import { Address, Balance, Upload2IPFS /*Events*/ } from "../components";
 
 import brazil from "../images/brazil.jpg";
 import costaRica from "../images/costaRica.jpg";
@@ -24,6 +24,7 @@ export default function ProjectCard({
   const [newPurpose, setNewPurpose] = useState("loading...");
 
   let display = "";
+  let contractName = "YourContract";
 
   if (image2Display === "brazil") {
     display = brazil;
@@ -43,6 +44,7 @@ export default function ProjectCard({
         <h4>purpose: {purpose}</h4>
         <Divider />
         <Image width={450} height={300} src={display}></Image>
+        <Upload2IPFS></Upload2IPFS>
         <div style={{ margin: 8 }}>
           <Input
             onChange={e => {
@@ -54,7 +56,7 @@ export default function ProjectCard({
             onClick={async () => {
               /* look how you call setPurpose on your contract: */
               /* notice how you pass a call back for tx updates too */
-              const result = tx(writeContracts.YourContract.setPurpose(newPurpose), update => {
+              const result = tx(writeContracts[contractName].setPurpose(newPurpose), update => {
                 console.log("📡 Transaction Update:", update);
                 if (update && (update.status === "confirmed" || update.status === 1)) {
                   console.log(" 🍾 Transaction " + update.hash + " finished!");
