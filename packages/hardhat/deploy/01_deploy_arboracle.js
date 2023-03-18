@@ -20,7 +20,23 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   await deploy("Arboracle", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+    args: ["Colombian Moorland ARB-C-010"],
+    log: true,
+    // waitConfirmations: 5,
+  });
+
+  await deploy("Arboracle", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    args: ["Brazilian Rainforest ARB-C-110"],
+    log: true,
+    // waitConfirmations: 5,
+  });
+
+  await deploy("Arboracle", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    args: ["Costa Rica Rainforest ARB-A-100"],
     log: true,
     // waitConfirmations: 5,
   });

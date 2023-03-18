@@ -342,7 +342,7 @@ function App(props) {
               purpose={purpose}
             />
             <ProjectCard
-              image2Display={"costaRica"}
+              image2Display={"brazil"}
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}
@@ -355,7 +355,7 @@ function App(props) {
               purpose={purpose}
             />
             <ProjectCard
-              image2Display={"brazil"}
+              image2Display={"costaRica"}
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}

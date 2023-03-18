@@ -8,6 +8,12 @@ contract Arboracle {
     event ImageReceived (string indexed _string);
 
     string[] public images;
+    bytes projectName;
+
+
+    constructor (string memory _string) {
+        projectName = bytes(_string);
+    }
     
     // Create an Optimistic oracle instance at the deployed address on Görli.
     OptimisticOracleV2Interface oo = OptimisticOracleV2Interface(0xA5B9d8a0B0Fa04Ba71BDD68069661ED5C0848884);
@@ -18,7 +24,8 @@ contract Arboracle {
     bytes ancillaryPart1 = bytes("IPFS CID: ");
     bytes IPFS;
     bytes ancillaryPart2 = bytes(" is a file representing the actual state of reforestation project ");
-    bytes projectName = bytes("'Ecuadorian Rainforest #001'?");
+    //bytes projectName = bytes("'Ecuadorian Rainforest #001'?");
+    bytes questionMark = bytes("?");
     
 
     //bytes ancillaryData =
@@ -35,13 +42,16 @@ contract Arboracle {
         uint256 reward = 0; // Set the reward to 0 (so we dont have to fund it from this contract).
 
         IPFS = bytes(_IPFS);
-        ancillaryData = abi.encodePacked(ancillaryPart1, IPFS, ancillaryPart2, projectName );
+        ancillaryData = abi.encodePacked(ancillaryPart1, IPFS, ancillaryPart2, projectName, questionMark );
         
+        /*
         // Now, make the price request to the Optimistic oracle and set the liveness to 30 so it will settle quickly.
         oo.requestPrice(identifier, requestTime, ancillaryData, bondCurrency, reward);
         oo.setCustomLiveness(identifier, requestTime, ancillaryData, 30);
 
+        //We propose the "price" of 1 to the oracle simultaneously. 
         oo.proposePrice(address(this), identifier, requestTime, ancillaryData, 1);
+        */
     }
 
     // Settle the request once it's gone through the liveness period of 30 seconds. This acts the finalize the voted on price.
@@ -63,6 +73,9 @@ contract Arboracle {
 
     function getAncillaryString() public view returns (string memory) {
         return string(ancillaryData);
+    }
 
+    function getProjectName() public view returns (string memory) {
+        return string(projectName);
     }
 }
