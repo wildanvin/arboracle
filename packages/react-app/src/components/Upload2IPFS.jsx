@@ -37,7 +37,7 @@ function Upload2IPFS() {
       <input type="file" onChange={onChange} />
       {fileUrl && (
         <div>
-          <img src={fileUrl} width="200px" />
+          <img src={fileUrl} width="200px" alt="ProjectImage" />
           <a href={fileUrl} target="_blank" rel="noreferrer">
             {fileUrl}
           </a>
