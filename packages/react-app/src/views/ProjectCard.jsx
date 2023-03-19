@@ -21,10 +21,16 @@ export default function ProjectCard({
   readContracts,
   writeContracts,
 }) {
+  const [CID, setCID] = useState("");
+  const handleCID = newCID => {
+    setCID(newCID);
+    console.log(`The CID is: ${CID}`);
+  };
+
   const [newPurpose, setNewPurpose] = useState("loading...");
 
   let display = "";
-  let contractName = "YourContract";
+  let contractName = "Arboracle";
 
   if (image2Display === "brazil") {
     display = brazil;
@@ -44,7 +50,25 @@ export default function ProjectCard({
         <h4>purpose: {purpose}</h4>
         <Divider />
         <Image width={450} height={300} src={display}></Image>
-        <Upload2IPFS></Upload2IPFS>
+        <Upload2IPFS onCIDChange={handleCID} />
+        <br />
+        <Button
+          style={{ marginTop: 8 }}
+          onClick={async () => {
+            /* look how you call setPurpose on your contract: */
+            /* notice how you pass a call back for tx updates too */
+            const result = tx(writeContracts[contractName].requestData(CID), update => {
+              console.log("📡 Transaction Update:", update);
+              if (update && (update.status === "confirmed" || update.status === 1)) {
+                console.log(" 🍾 Transaction " + update.hash + " finished!");
+              }
+            });
+            console.log("awaiting metamask/web3 confirm result...", result);
+            console.log(await result);
+          }}
+        >
+          Submit to Oracle
+        </Button>
         <div style={{ margin: 8 }}>
           <Input
             onChange={e => {
@@ -56,7 +80,7 @@ export default function ProjectCard({
             onClick={async () => {
               /* look how you call setPurpose on your contract: */
               /* notice how you pass a call back for tx updates too */
-              const result = tx(writeContracts[contractName].setPurpose(newPurpose), update => {
+              const result = tx(writeContracts.YourContract.setPurpose(newPurpose), update => {
                 console.log("📡 Transaction Update:", update);
                 if (update && (update.status === "confirmed" || update.status === 1)) {
                   console.log(" 🍾 Transaction " + update.hash + " finished!");
