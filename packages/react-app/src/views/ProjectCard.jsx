@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 
-import { Address, Balance, Upload2IPFS /*Events*/ } from "../components";
+import { Address, Balance, Upload2IPFS, Timer /*Events*/ } from "../components";
 
 import brazil from "../images/brazil.jpg";
 import costaRica from "../images/costaRica.jpg";
@@ -26,6 +26,8 @@ export default function ProjectCard({
     setCID(newCID);
     console.log(`The CID is: ${CID}`);
   };
+
+  const [showTimer, setShowTimer] = useState(false);
 
   const [newPurpose, setNewPurpose] = useState("loading...");
 
@@ -51,7 +53,6 @@ export default function ProjectCard({
         <Divider />
         <Image width={450} height={300} src={display}></Image>
         <Upload2IPFS onCIDChange={handleCID} />
-        <br />
         <Button
           style={{ marginTop: 8 }}
           onClick={async () => {
@@ -61,6 +62,7 @@ export default function ProjectCard({
               console.log("📡 Transaction Update:", update);
               if (update && (update.status === "confirmed" || update.status === 1)) {
                 console.log(" 🍾 Transaction " + update.hash + " finished!");
+                setShowTimer(true);
               }
             });
             console.log("awaiting metamask/web3 confirm result...", result);
@@ -69,6 +71,8 @@ export default function ProjectCard({
         >
           Submit to Oracle
         </Button>
+        <Divider />
+        <Timer show={showTimer} />
         <div style={{ margin: 8 }}>
           <Input
             onChange={e => {
