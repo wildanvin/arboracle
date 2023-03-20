@@ -28,6 +28,7 @@ export default function ProjectCard({
   };
 
   const [showTimer, setShowTimer] = useState(false);
+  const [ancillary, setAncillary] = useState("");
 
   const [newPurpose, setNewPurpose] = useState("loading...");
 
@@ -58,11 +59,13 @@ export default function ProjectCard({
           onClick={async () => {
             /* look how you call setPurpose on your contract: */
             /* notice how you pass a call back for tx updates too */
-            const result = tx(writeContracts[contractName].requestData(CID), update => {
+            const result = tx(writeContracts[contractName].requestData(CID), async update => {
               console.log("📡 Transaction Update:", update);
               if (update && (update.status === "confirmed" || update.status === 1)) {
                 console.log(" 🍾 Transaction " + update.hash + " finished!");
                 setShowTimer(true);
+                let temp = await readContracts[contractName].getAncillaryString();
+                setAncillary(temp);
               }
             });
             console.log("awaiting metamask/web3 confirm result...", result);
@@ -72,7 +75,7 @@ export default function ProjectCard({
           Submit to Oracle
         </Button>
         <Divider />
-        <Timer show={showTimer} />
+        <Timer show={showTimer} ancillary={ancillary} />
         <div style={{ margin: 8 }}>
           <Input
             onChange={e => {

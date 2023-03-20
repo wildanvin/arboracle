@@ -4,19 +4,19 @@ import { ClockCircleOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
-const Timer = ({ show }) => {
+const Timer = ({ show, ancillary }) => {
   const [time, setTime] = useState(30);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     let interval;
-    if (isRunning && time > 0) {
+    if (show && time > 0) {
       interval = setInterval(() => {
         setTime(prevTime => prevTime - 1);
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isRunning, time]);
+  }, [show, time]);
 
   const handleStart = () => {
     setIsRunning(true);
@@ -41,21 +41,21 @@ const Timer = ({ show }) => {
 
   const timerFunctionality = (
     <div style={{ textAlign: "center" }}>
+      <p>{ancillary}</p>
+      {time === 0 ? (
+        <Button type="primary" onClick={handleStart}>
+          Settle Request
+        </Button>
+      ) : (
+        <Button type="primary" danger onClick={handleStop}>
+          No, dispute
+        </Button>
+      )}
+      <br />
+      <br />
       <Title level={2} style={{ marginBottom: 0 }}>
         <ClockCircleOutlined /> {formatTime(time)}
       </Title>
-      <Button.Group style={{ marginTop: 16 }}>
-        {!isRunning ? (
-          <Button type="primary" onClick={handleStart}>
-            Start
-          </Button>
-        ) : (
-          <Button type="primary" danger onClick={handleStop}>
-            Stop
-          </Button>
-        )}
-        <Button onClick={handleReset}>Reset</Button>
-      </Button.Group>
     </div>
   );
   return <div>{show ? timerFunctionality : <h1>Hello, World!</h1>}</div>;

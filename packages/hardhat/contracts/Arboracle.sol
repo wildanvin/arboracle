@@ -22,7 +22,7 @@ contract Arboracle {
     bytes32 identifier = bytes32("YES_OR_NO_QUERY");
 
     bytes ancillaryPart1 = bytes("IPFS CID: ");
-    bytes IPFS;
+    bytes public IPFS;
     bytes ancillaryPart2 = bytes(" is a file representing the actual state of reforestation project ");
     //bytes projectName = bytes("'Ecuadorian Rainforest #001'?");
     bytes questionMark = bytes("?");
