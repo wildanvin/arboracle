@@ -1,6 +1,6 @@
 import { Button, Divider, Image } from "antd";
 import React, { useState } from "react";
-import { utils } from "ethers";
+//import { utils } from "ethers";
 
 import { Upload2IPFS, Timer, EventsArboracle } from "../components";
 
@@ -55,7 +55,7 @@ export default function ProjectCard({
         <Button
           style={{ marginTop: 8 }}
           onClick={async () => {
-            const result = tx(writeContracts[contractName].requestData(CID), async update => {
+            tx(writeContracts[contractName].requestData(CID), async update => {
               console.log("📡 Transaction Update:", update);
               if (update && (update.status === "confirmed" || update.status === 1)) {
                 console.log(" 🍾 Transaction " + update.hash + " finished!");
