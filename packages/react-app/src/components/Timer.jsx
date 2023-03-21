@@ -16,10 +16,10 @@ const Timer = ({ show, ancillary, tx, writeContracts, contractName }) => {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [show, time]);
+  }, [show, time, stopTimer]);
 
   async function handleSettle() {
-    const result = tx(writeContracts[contractName].settleRequest(), update => {
+    tx(writeContracts[contractName].settleRequest(), update => {
       console.log("📡 Transaction Update:", update);
       if (update && (update.status === "confirmed" || update.status === 1)) {
         console.log(" 🍾 Transaction " + update.hash + " finished!");
@@ -29,7 +29,7 @@ const Timer = ({ show, ancillary, tx, writeContracts, contractName }) => {
 
   async function handleDispute() {
     setStopTimer(true);
-    const result = tx(writeContracts[contractName].dispute(), update => {
+    tx(writeContracts[contractName].dispute(), update => {
       console.log("📡 Transaction Update:", update);
       if (update && (update.status === "confirmed" || update.status === 1)) {
         console.log(" 🍾 Transaction " + update.hash + " finished!");
