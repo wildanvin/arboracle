@@ -4,13 +4,13 @@ import { ClockCircleOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
-const Timer = ({ show, ancillary }) => {
+const Timer = ({ show, ancillary, tx, writeContracts, contractName }) => {
   const [time, setTime] = useState(30);
-  const [isRunning, setIsRunning] = useState(false);
+  const [stopTimer, setStopTimer] = useState(false);
 
   useEffect(() => {
     let interval;
-    if (show && time > 0) {
+    if (show && time > 0 && !stopTimer) {
       interval = setInterval(() => {
         setTime(prevTime => prevTime - 1);
       }, 1000);
@@ -18,18 +18,24 @@ const Timer = ({ show, ancillary }) => {
     return () => clearInterval(interval);
   }, [show, time]);
 
-  const handleStart = () => {
-    setIsRunning(true);
-  };
+  async function handleSettle() {
+    const result = tx(writeContracts[contractName].settleRequest(), update => {
+      console.log("📡 Transaction Update:", update);
+      if (update && (update.status === "confirmed" || update.status === 1)) {
+        console.log(" 🍾 Transaction " + update.hash + " finished!");
+      }
+    });
+  }
 
-  const handleStop = () => {
-    setIsRunning(false);
-  };
-
-  const handleReset = () => {
-    setTime(30);
-    setIsRunning(false);
-  };
+  async function handleDispute() {
+    setStopTimer(true);
+    const result = tx(writeContracts[contractName].dispute(), update => {
+      console.log("📡 Transaction Update:", update);
+      if (update && (update.status === "confirmed" || update.status === 1)) {
+        console.log(" 🍾 Transaction " + update.hash + " finished!");
+      }
+    });
+  }
 
   const formatTime = time => {
     const minutes = Math.floor(time / 60)
@@ -43,12 +49,12 @@ const Timer = ({ show, ancillary }) => {
     <div style={{ textAlign: "center" }}>
       <p>{ancillary}</p>
       {time === 0 ? (
-        <Button type="primary" onClick={handleStart}>
+        <Button type="primary" onClick={handleSettle}>
           Settle Request
         </Button>
       ) : (
-        <Button type="primary" danger onClick={handleStop}>
-          No, dispute
+        <Button type="primary" danger onClick={handleDispute}>
+          Dispute
         </Button>
       )}
       <br />

@@ -24,7 +24,7 @@ export default function Events({ contracts, contractName, eventName, localProvid
   const events = useEventListener(contracts, contractName, eventName, localProvider, startBlock);
 
   return (
-    <div style={{ width: 600, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
+    <div style={{ width: 400, margin: "auto", marginTop: 32, paddingBottom: 32 }}>
       <h2>Events:</h2>
       <List
         bordered

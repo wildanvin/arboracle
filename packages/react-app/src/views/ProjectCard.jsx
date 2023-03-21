@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 
-import { Address, Balance, Upload2IPFS, Timer /*Events*/ } from "../components";
+import { Address, Balance, Upload2IPFS, Timer, Events, EventsArboracle } from "../components";
 
 import brazil from "../images/brazil.jpg";
 import costaRica from "../images/costaRica.jpg";
@@ -75,7 +75,37 @@ export default function ProjectCard({
           Submit to Oracle
         </Button>
         <Divider />
-        <Timer show={showTimer} ancillary={ancillary} />
+        <Timer
+          show={showTimer}
+          ancillary={ancillary}
+          tx={tx}
+          writeContracts={writeContracts}
+          contractName={contractName}
+        />
+        <EventsArboracle
+          contracts={readContracts}
+          contractName={contractName}
+          eventName="DataReceived"
+          localProvider={localProvider}
+          mainnetProvider={mainnetProvider}
+          startBlock={1}
+        />
+        <EventsArboracle
+          contracts={readContracts}
+          contractName={contractName}
+          eventName="DataDisputed"
+          localProvider={localProvider}
+          mainnetProvider={mainnetProvider}
+          startBlock={1}
+        />
+        <Events
+          contracts={readContracts}
+          contractName="YourContract"
+          eventName="SetPurpose"
+          localProvider={localProvider}
+          mainnetProvider={mainnetProvider}
+          startBlock={1}
+        />
         <div style={{ margin: 8 }}>
           <Input
             onChange={e => {
@@ -203,14 +233,14 @@ export default function ProjectCard({
         📑 Maybe display a list of events?
           (uncomment the event and emit line in YourContract.sol! )
       */}
-      {/* <Events
+      <Events
         contracts={readContracts}
         contractName="YourContract"
         eventName="SetPurpose"
         localProvider={localProvider}
         mainnetProvider={mainnetProvider}
         startBlock={1}
-      /> */}
+      />
 
       <div style={{ width: 400, margin: "auto", marginTop: 32, paddingBottom: 256 }}>
         <Card>

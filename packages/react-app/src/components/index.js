@@ -26,3 +26,4 @@ export { default as MultiAddressInput } from "./MultiAddressInput";
 export { default as TokenSelect } from "./TokenSelect";
 export { default as Upload2IPFS } from "./Upload2IPFS";
 export { default as Timer } from "./Timer";
+export { default as EventsArboracle } from "./EventsArboracle";

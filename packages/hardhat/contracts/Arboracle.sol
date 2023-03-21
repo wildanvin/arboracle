@@ -5,9 +5,11 @@ import "./UMAInterfaces/OptimisticOracleV2Interface.sol";
 
 contract Arboracle {
 
-    event ImageReceived (string indexed _string);
+    event DataReceived (address _address, string _string, uint256 _time);
+    event DataDisputed (address _address, string _string, uint256 _time);
 
-    string[] public images;
+
+    string[] public data;
     bytes projectName;
 
 
@@ -24,12 +26,7 @@ contract Arboracle {
     bytes ancillaryPart1 = bytes("IPFS CID: ");
     bytes public IPFS;
     bytes ancillaryPart2 = bytes(" is a file representing the actual state of reforestation project ");
-    //bytes projectName = bytes("'Ecuadorian Rainforest #001'?");
     bytes questionMark = bytes("?");
-    
-
-    //bytes ancillaryData =
-      //  bytes("Q:Did Argentina won the World Cup in December 2022? 10 for YES. 0 for NO.");
 
     bytes public ancillaryData;
 
@@ -57,9 +54,9 @@ contract Arboracle {
     // Settle the request once it's gone through the liveness period of 30 seconds. This acts the finalize the voted on price.
     // In a real world use of the Optimistic Oracle this should be longer to give time to disputers to catch bat price proposals.
     function settleRequest() public {
-        oo.settle(address(this), identifier, requestTime, ancillaryData);
-        images.push(string(IPFS));
-        emit ImageReceived(string(IPFS));
+        //oo.settle(address(this), identifier, requestTime, ancillaryData);
+        data.push(string(IPFS));
+        emit DataReceived(msg.sender, string(IPFS), block.timestamp);
     }
 
     // Fetch the resolved price from the Optimistic Oracle that was settled.
@@ -68,7 +65,8 @@ contract Arboracle {
     }
 
     function dispute () public {
-        oo.disputePrice(address(this), identifier, requestTime, ancillaryData);
+        //oo.disputePrice(address(this), identifier, requestTime, ancillaryData);
+        emit DataDisputed(msg.sender, string(IPFS), block.timestamp);
     }
 
     function getAncillaryString() public view returns (string memory) {
