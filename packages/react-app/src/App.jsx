@@ -177,6 +177,7 @@ function App(props) {
 
   // keep track of a variable from the contract in the local React state:
   const purpose = useContractReader(readContracts, "YourContract", "purpose", [], localProviderPollingTime);
+  const healthScore = useContractReader(readContracts, "Arboracle", "healthScore", [], localProviderPollingTime);
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -330,6 +331,7 @@ function App(props) {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
             <ProjectCard
               image2Display={"colombia"}
+              healthScore={Number(healthScore)}
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}
@@ -339,10 +341,10 @@ function App(props) {
               tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
-              purpose={purpose}
             />
             <ProjectCard
               image2Display={"brazil"}
+              healthScore={Number(healthScore)}
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}
@@ -352,10 +354,10 @@ function App(props) {
               tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
-              purpose={purpose}
             />
             <ProjectCard
               image2Display={"costaRica"}
+              healthScore={Number(healthScore)}
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}
@@ -365,7 +367,6 @@ function App(props) {
               tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
-              purpose={purpose}
             />
           </div>
           <br />

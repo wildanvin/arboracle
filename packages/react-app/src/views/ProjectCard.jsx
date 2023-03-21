@@ -10,7 +10,7 @@ import colombia from "../images/colombia.jpg";
 
 export default function ProjectCard({
   image2Display,
-  purpose,
+  healthScore,
   address,
   mainnetProvider,
   localProvider,
@@ -42,24 +42,19 @@ export default function ProjectCard({
 
   return (
     <div>
-      {/*
-        ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
-      */}
       <div style={{ border: "1px solid #cccccc", padding: 16, width: 500, margin: "auto", marginTop: 64 }}>
         <h1>Example UI:</h1>
 
         <Divider />
         <Image width={450} height={300} src={display}></Image>
         <Divider />
-        <h2>Project Health: 9/10</h2>
+        <h2>Project Health: {healthScore}/10</h2>
         <Divider />
 
         <Upload2IPFS onCIDChange={handleCID} />
         <Button
           style={{ marginTop: 8 }}
           onClick={async () => {
-            /* look how you call setPurpose on your contract: */
-            /* notice how you pass a call back for tx updates too */
             const result = tx(writeContracts[contractName].requestData(CID), async update => {
               console.log("📡 Transaction Update:", update);
               if (update && (update.status === "confirmed" || update.status === 1)) {

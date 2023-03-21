@@ -8,31 +8,30 @@ contract Arboracle {
     event DataReceived (address _address, string _string, uint256 _time);
     event DataDisputed (address _address, string _string, uint256 _time);
 
-
     string[] public data;
     bytes projectName;
+    uint public healthScore;
 
-
-    constructor (string memory _string) {
-        projectName = bytes(_string);
-    }
-    
     // Create an Optimistic oracle instance at the deployed address on Görli.
     OptimisticOracleV2Interface oo = OptimisticOracleV2Interface(0xA5B9d8a0B0Fa04Ba71BDD68069661ED5C0848884);
 
     // Use the yes no idetifier to ask arbitary questions, such as the weather on a particular day.
     bytes32 identifier = bytes32("YES_OR_NO_QUERY");
 
+    //Ancillary Data variables
     bytes ancillaryPart1 = bytes("IPFS CID: ");
     bytes public IPFS;
     bytes ancillaryPart2 = bytes(" is a file representing the actual state of reforestation project ");
     bytes questionMark = bytes("?");
-
     bytes public ancillaryData;
 
     uint256 requestTime = 0; 
 
-    // Submit a data request to the Optimistic oracle.
+    constructor (string memory _string) {
+        projectName = bytes(_string);
+    }
+
+    // Submit a data request to the Optimistic oracle and "proposePrice" in the same tx.
     function requestData(string memory _IPFS) public {
         requestTime = block.timestamp; 
         IERC20 bondCurrency = IERC20(0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6); // Use Görli WETH as the bond currency.
@@ -56,6 +55,7 @@ contract Arboracle {
     function settleRequest() public {
         //oo.settle(address(this), identifier, requestTime, ancillaryData);
         data.push(string(IPFS));
+        _calculateHealthScore();
         emit DataReceived(msg.sender, string(IPFS), block.timestamp);
     }
 
@@ -68,6 +68,17 @@ contract Arboracle {
         //oo.disputePrice(address(this), identifier, requestTime, ancillaryData);
         emit DataDisputed(msg.sender, string(IPFS), block.timestamp);
     }
+
+    //This function is a mock to calculate the health score.
+    //It assigns a "random" number between 5 and 10 to the the healthScore variable
+    //In the future this function will call Chainlink or Bacalhau to compute over the data submitted and get a more realistic health score
+    function _calculateHealthScore() internal {
+        uint timestamp = block.timestamp;
+        uint randomNumber = uint(keccak256(abi.encodePacked(timestamp)));
+        uint number = (randomNumber % 6) + 5; // range from 0 to 5, add 5 to get range from 5 to 10
+        healthScore = number;
+    }
+
 
     function getAncillaryString() public view returns (string memory) {
         return string(ancillaryData);
