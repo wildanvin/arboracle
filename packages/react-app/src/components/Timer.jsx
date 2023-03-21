@@ -64,7 +64,7 @@ const Timer = ({ show, ancillary, tx, writeContracts, contractName }) => {
       </Title>
     </div>
   );
-  return <div>{show ? timerFunctionality : <h1>Hello, World!</h1>}</div>;
+  return <div>{show ? timerFunctionality : <></>}</div>;
 };
 
 export default Timer;

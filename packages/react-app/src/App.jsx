@@ -368,8 +368,18 @@ function App(props) {
               purpose={purpose}
             />
           </div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
 
-          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
+          {/* <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} /> */}
         </Route>
         <Route exact path="/debug">
           {/*

@@ -46,10 +46,14 @@ export default function ProjectCard({
         ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
       */}
       <div style={{ border: "1px solid #cccccc", padding: 16, width: 500, margin: "auto", marginTop: 64 }}>
-        <h2>Example UI:</h2>
-        <h4>purpose: {purpose}</h4>
+        <h1>Example UI:</h1>
+
         <Divider />
         <Image width={450} height={300} src={display}></Image>
+        <Divider />
+        <h2>Project Health: 9/10</h2>
+        <Divider />
+
         <Upload2IPFS onCIDChange={handleCID} />
         <Button
           style={{ marginTop: 8 }}
@@ -65,8 +69,6 @@ export default function ProjectCard({
                 setAncillary(temp);
               }
             });
-            console.log("awaiting metamask/web3 confirm result...", result);
-            console.log(await result);
           }}
         >
           Submit to Oracle
@@ -95,24 +97,6 @@ export default function ProjectCard({
           mainnetProvider={mainnetProvider}
           startBlock={1}
         />
-
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /* you can also just craft a transaction and send it to the tx() transactor */
-              tx({
-                to: writeContracts.YourContract.address,
-                value: utils.parseEther("0.001"),
-                data: writeContracts.YourContract.interface.encodeFunctionData("setPurpose(string)", [
-                  "🤓 Whoa so 1337!",
-                ]),
-              });
-              /* this should throw an error about "no fallback nor receive function" until you add it */
-            }}
-          >
-            Another Example
-          </Button>
-        </div>
       </div>
     </div>
   );
