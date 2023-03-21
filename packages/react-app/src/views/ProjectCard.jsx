@@ -2,7 +2,7 @@ import { Button, Divider, Image } from "antd";
 import React, { useState } from "react";
 import { utils } from "ethers";
 
-import { Upload2IPFS, Timer, Events, EventsArboracle } from "../components";
+import { Upload2IPFS, Timer, EventsArboracle } from "../components";
 
 import brazil from "../images/brazil.jpg";
 import costaRica from "../images/costaRica.jpg";
@@ -28,8 +28,6 @@ export default function ProjectCard({
 
   const [showTimer, setShowTimer] = useState(false);
   const [ancillary, setAncillary] = useState("");
-
-  const [newPurpose, setNewPurpose] = useState("loading...");
 
   let display = "";
   let contractName = "Arboracle";
