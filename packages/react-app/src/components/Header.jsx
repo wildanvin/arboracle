@@ -10,7 +10,7 @@ export default function Header({ link, title, subTitle, ...props }) {
     <div style={{ display: "flex", justifyContent: "space-between", padding: "1.2rem" }}>
       <div style={{ display: "flex", flexDirection: "column", flex: 1, alignItems: "start" }}>
         <a href={link} target="_blank" rel="noopener noreferrer">
-          <Title level={4} style={{ margin: "0 0.5rem 0 0" }}>
+          <Title level={2} style={{ margin: "0 0.5rem 0 0" }}>
             {title}
           </Title>
         </a>
@@ -24,7 +24,7 @@ export default function Header({ link, title, subTitle, ...props }) {
 }
 
 Header.defaultProps = {
-  link: "https://github.com/scaffold-eth/scaffold-eth",
-  title: "🏗 Scaffold-Eth",
-  subTitle: "Forkable Ethereum dev stack focused on fast product iteration",
+  link: "https://github.com/wildanvin/arboracle",
+  title: "🌲 Arboracle",
+  subTitle: "Bring transparency and security to reforestation project data",
 };

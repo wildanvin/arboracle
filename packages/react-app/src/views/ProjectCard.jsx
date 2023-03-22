@@ -1,4 +1,4 @@
-import { Button, Divider, Image } from "antd";
+import { Button, Divider, Image, Typography } from "antd";
 import React, { useState } from "react";
 //import { utils } from "ethers";
 
@@ -8,6 +8,7 @@ import brazil from "../images/brazil.jpg";
 import costaRica from "../images/costaRica.jpg";
 import colombia from "../images/colombia.jpg";
 
+const { Title, Text } = Typography;
 export default function ProjectCard({
   image2Display,
   healthScore,
@@ -50,9 +51,10 @@ export default function ProjectCard({
   return (
     <div>
       <div style={{ border: "1px solid #cccccc", padding: 16, width: 500, margin: "auto", marginTop: 64 }}>
-        <h1>{projectName}</h1>
+        <Title level={3} style={{ margin: "0 0.5rem 1rem 0" }}>
+          {projectName}
+        </Title>
 
-        <Divider />
         <Image width={450} height={300} src={display}></Image>
         <Divider />
         <h2>Project Health: {healthScore}/10</h2>
