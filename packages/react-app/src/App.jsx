@@ -177,7 +177,7 @@ function App(props) {
 
   // keep track of a variable from the contract in the local React state:
   const purpose = useContractReader(readContracts, "YourContract", "purpose", [], localProviderPollingTime);
-  const healthScore = useContractReader(readContracts, "Arboracle", "healthScore", [], localProviderPollingTime);
+  //const healthScore = useContractReader(readContracts, "Arboracle", "healthScore", [], localProviderPollingTime);
   const healthScoreBrazil = useContractReader(
     readContracts,
     "BrazilArboracle",

@@ -1,5 +1,5 @@
 import { Button, Divider, Image } from "antd";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 //import { utils } from "ethers";
 
 import { Upload2IPFS, Timer, EventsArboracle } from "../components";
