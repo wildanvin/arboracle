@@ -8,7 +8,7 @@ import brazil from "../images/brazil.jpg";
 import costaRica from "../images/costaRica.jpg";
 import colombia from "../images/colombia.jpg";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 export default function ProjectCard({
   image2Display,
   healthScore,
