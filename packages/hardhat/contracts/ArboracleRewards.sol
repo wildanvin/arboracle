@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./UMAInterfaces/OptimisticOracleV2Interface.sol";
 
-contract Arboracle {
+contract ArboracleRewards {
 
     event DataReceived (address _address, string _string, uint256 _time);
     event DataDisputed (address _address, string _string, uint256 _time);

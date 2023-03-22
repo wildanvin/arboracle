@@ -17,24 +17,22 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
-  await deploy("Arboracle", {
-    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+  await deploy("BrazilArboracle", {
     from: deployer,
-    args: ["Testing Project"],
     log: true,
     // waitConfirmations: 5,
   });
 
-  try {
-    if (chainId !== localChainId) {
-      // await run("verify:verify", {
-      //   address: YourContract.address,
-      //   contract: "contracts/YourContract.sol:YourContract",
-      //   constructorArguments: [],
-      // });
-    }
-  } catch (error) {
-    console.error("Verification Error =>", error);
-  }
+  await deploy("ColombiaArboracle", {
+    from: deployer,
+    log: true,
+    // waitConfirmations: 5,
+  });
+
+  await deploy("CostaRicaArboracle", {
+    from: deployer,
+    log: true,
+    // waitConfirmations: 5,
+  });
 };
-module.exports.tags = ["Arboracle"];
+module.exports.tags = ["Countries"];

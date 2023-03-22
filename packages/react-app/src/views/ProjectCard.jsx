@@ -1,5 +1,5 @@
 import { Button, Divider, Image } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //import { utils } from "ethers";
 
 import { Upload2IPFS, Timer, EventsArboracle } from "../components";
@@ -30,20 +30,27 @@ export default function ProjectCard({
   const [ancillary, setAncillary] = useState("");
 
   let display = "";
-  let contractName = "Arboracle";
+  let contractName = "";
+  let projectName = "";
 
   if (image2Display === "brazil") {
     display = brazil;
+    contractName = "BrazilArboracle";
+    projectName = "Brazilian Rainforest ARB-C-110";
   } else if (image2Display === "costaRica") {
     display = costaRica;
+    contractName = "CostaRicaArboracle";
+    projectName = "Costa Rica Rainforest ARB-A-100";
   } else {
     display = colombia;
+    contractName = "ColombiaArboracle";
+    projectName = "Colombian Moorland ARB-C-010";
   }
 
   return (
     <div>
       <div style={{ border: "1px solid #cccccc", padding: 16, width: 500, margin: "auto", marginTop: 64 }}>
-        <h1>Example UI:</h1>
+        <h1>{projectName}</h1>
 
         <Divider />
         <Image width={450} height={300} src={display}></Image>
