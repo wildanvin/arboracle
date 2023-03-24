@@ -52,7 +52,7 @@ contract Arboracle {
     // Settle the request once it's gone through the liveness period of 30 seconds. This acts the finalize the voted on price.
     // In a real world use of the Optimistic Oracle this should be longer to give time to disputers to catch bat price proposals.
     function settleRequest() public {
-        //oo.settle(address(this), identifier, requestTime, ancillaryData);
+        oo.settle(address(this), identifier, requestTime, ancillaryData);
         data.push(string(IPFS));
         _calculateHealthScore();
         emit DataReceived(msg.sender, string(IPFS), block.timestamp);
