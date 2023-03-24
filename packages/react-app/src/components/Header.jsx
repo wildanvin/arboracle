@@ -26,5 +26,5 @@ export default function Header({ link, title, subTitle, ...props }) {
 Header.defaultProps = {
   link: "https://github.com/wildanvin/arboracle",
   title: "🌲 Arboracle",
-  subTitle: "Bring transparency and security to reforestation project data",
+  subTitle: "Bring transparency and security to reforestation projects data",
 };
