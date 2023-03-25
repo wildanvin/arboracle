@@ -1,130 +1,100 @@
-# 🏗 Scaffold-ETH
+# 🌲 Arboracle
 
-> everything you need to build on Ethereum! 🚀
+Arboracle is a project that aims to bring data of reforestation projects on chain in a decentralized and secure way.
 
-🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
+In this approach, each reforestation project will function as a DataDAO and its purpose is to incentivize people to bring data on chain. The data can be photos, videos or anything that helps the DataDAO to prove the health of the project.
 
-![image](https://user-images.githubusercontent.com/2653167/124158108-c14ca380-da56-11eb-967e-69cde37ca8eb.png)
+For example, the DAO can say something like: "In order to submit data you have to provide a bond of 100 tokens an your reward will be 10 tokens if the data really represents the actual state of the project". These reward tokens can be in the form of ERC20 tokens minted by the project as it captures CO2 or any other token, such as USDC or WETH.
 
+The data that the user submits is secured by the Optimistic Oracle of UMA.
 
-# 🏄‍♂️ Quick Start
+After the data has has been accepted the DataDAO will use Bacalhau to run different algorithms on the submitted data and update the Health Score of the project. For this demo I ran out of time to implement this functionality with Bacalhau.
 
-Prerequisites: [Node (v18 LTS)](https://nodejs.org/en/download/) plus [Yarn (v1.x)](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
+# Live demo
 
-🚨 If you are using a version < v18 you will need to remove `openssl-legacy-provider` from the `start` script in `package.json`
+- You can interact with the live demo in this [link](https://mature-pickle.surge.sh/).
+- Also, here is a demo video on [youtube](https://youtu.be/jZn_8mASKNc) and in [lenstube](https://lenstube.xyz/watch/0x014f6f-0x09).
+- The contracts are verified at this addresses:
+  - [Brazil Project](https://goerli.etherscan.io/address/0xa901de865d04fb375Bd2097a47337A6AE8c94f59#code)
+  - [Colombia Project](https://goerli.etherscan.io/address/0x451E2A5ef9C69DF3eEA5BEFC588D8a058452963a#code)
+  - [CostaRicaProject](https://goerli.etherscan.io/address/0xf7186888A18d95856A4dE8266c10526765B437e4#code)
 
-> 1️⃣ clone/fork 🏗 scaffold-eth:
+# Directory Structure
+
+Scaffold-Eth provides a lot of nice functionality that I did not use for this project. The folders that contain all the app functionaliy are:
+
+- `packages/react-app`: contains all the front end in react.
+- `packages/hardhat`: contains the solidity contracts and deploy scripts. There is a contract called `ArboracleRewards.sol` that I was starting to play around by setting a non zero reward and bond.
+
+Regarding the front end, the important components are located at:
+
+- `packages/react-app/src/views/ProjectCard`: this componenet displays each contract reforestation project.
+- `packages/react-app/src/views/components/EventsArboracle`: this is a component that I modified slightly from the `Events` component provided by Scaffold-Eth.
+
+# Run the project locally
+
+One of the nice things of Scaffold-Eth is that is very easy to run a project locally, as prerequisites you will need [Node (v18 LTS)](https://nodejs.org/en/download/) plus [Yarn (v1.x)](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
+
+> clone/fork:
 
 ```bash
-git clone https://github.com/scaffold-eth/scaffold-eth.git
+git clone https://github.com/wildanvin/arboracle
 ```
 
-> 2️⃣ install and start your 👷‍ Hardhat chain:
+> install and start your 👷‍ Hardhat chain:
 
 ```bash
-cd scaffold-eth
+cd arboracle
 yarn install
 yarn chain
 ```
 
-> 3️⃣ in a second terminal window, start your 📱 frontend:
-
-🚨 if your contracts are not deployed to localhost, you will need to update the default network in `App.jsx` to match your default network in `hardhat-config.js`.
+> in a second terminal window, start your 📱 frontend (you will need node v18):
 
 ```bash
-cd scaffold-eth
+cd arboracle
 yarn start
 ```
 
-> 4️⃣ in a third terminal window, 🛰 deploy your contract:
-
-🚨 if you are not deploying to localhost, you will need to run `yarn generate` first and then fund the deployer account. To view account balances, run `yarn account`. You will aslo need to update `hardhat-config.js` with the correct default network.
+> in a third terminal window, 🛰 deploy your contract:
 
 ```bash
-cd scaffold-eth
+cd arboracle
 yarn deploy
 ```
 
-🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
+That will deploy all the contracts. If you only want to deploy the countries contracts you can run
 
-📝 Edit your frontend `App.jsx` in `packages/react-app/src`
-
-💼 Edit your deployment scripts in `packages/hardhat/deploy`
+```bash
+yarn deploy --tags Countries
+```
 
 📱 Open http://localhost:3000 to see the app
 
-🚨📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
+Take into account that if you are interacting in a local environmet you have to comment in the `Arboracle.sol` the lines that interact with th OO in Goerli.
 
-# 📚 Documentation
+## IPFS
 
-Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
+To upload the document to IPFS I followed this [tutorial](https://dev.to/edge-and-node/uploading-files-to-ipfs-from-a-web-application-50a). You will need to create an IPFS project in [Infura](https://www.infura.io/) and create a `.env` file inside `packages/react-app` like this one:
 
+```bash
+REACT_APP_IPFS_PROJECT_ID="<your-infura-project-id>"
+REACT_APP_IPFS_PROJECT_SECRET="<your-infura-project-secret>"
+```
 
-# 🍦 Other Flavors
-- [scaffold-eth-typescript](https://github.com/scaffold-eth/scaffold-eth-typescript)
-- [scaffold-eth-tailwind](https://github.com/stevenpslade/scaffold-eth-tailwind)
-- [scaffold-nextjs](https://github.com/scaffold-eth/scaffold-eth/tree/scaffold-nextjs)
-- [scaffold-chakra](https://github.com/scaffold-eth/scaffold-eth/tree/chakra-ui)
-- [eth-hooks](https://github.com/scaffold-eth/eth-hooks)
-- [eth-components](https://github.com/scaffold-eth/eth-components)
-- [scaffold-eth-expo](https://github.com/scaffold-eth/scaffold-eth-expo)
-- [scaffold-eth-truffle](https://github.com/trufflesuite/scaffold-eth)
+# Deploy the project to a testnet
 
+To deploy the project to Goerli testnet I used the steps provided in [SpeedrunEthereum](https://speedrunethereum.com/challenge/simple-nft-example), starting from Checkpoint 3.
 
+It is important to mention that after you have deployed your contracts to the testnet and published your front end to surge you should go back to the default values that you had when you were working locally.
 
-# 🔭 Learning Solidity
+# For the future:
 
-📕 Read the docs: https://docs.soliditylang.org
+- Set a non zero bond and reward.
+- Integrate with Bacalhau.
+- Write tests for the smart contracts.
+- Run tools like slither, echidna and manticore in order to detect bugs in the contracts.
 
-📚 Go through each topic from [solidity by example](https://solidity-by-example.org) editing `YourContract.sol` in **🏗 scaffold-eth**
+# Contact
 
-- [Primitive Data Types](https://solidity-by-example.org/primitives/)
-- [Mappings](https://solidity-by-example.org/mapping/)
-- [Structs](https://solidity-by-example.org/structs/)
-- [Modifiers](https://solidity-by-example.org/function-modifier/)
-- [Events](https://solidity-by-example.org/events/)
-- [Inheritance](https://solidity-by-example.org/inheritance/)
-- [Payable](https://solidity-by-example.org/payable/)
-- [Fallback](https://solidity-by-example.org/fallback/)
-
-📧 Learn the [Solidity globals and units](https://docs.soliditylang.org/en/latest/units-and-global-variables.html)
-
-# 🛠 Buidl
-
-Check out all the [active branches](https://github.com/scaffold-eth/scaffold-eth/branches/active), [open issues](https://github.com/scaffold-eth/scaffold-eth/issues), and join/fund the 🏰 [BuidlGuidl](https://BuidlGuidl.com)!
-
-  
- - 🚤  [Follow the full Ethereum Speed Run](https://medium.com/@austin_48503/%EF%B8%8Fethereum-dev-speed-run-bd72bcba6a4c)
-
-
- - 🎟  [Create your first NFT](https://github.com/scaffold-eth/scaffold-eth/tree/simple-nft-example)
- - 🥩  [Build a staking smart contract](https://github.com/scaffold-eth/scaffold-eth/tree/challenge-1-decentralized-staking)
- - 🏵  [Deploy a token and vendor](https://github.com/scaffold-eth/scaffold-eth/tree/challenge-2-token-vendor)
- - 🎫  [Extend the NFT example to make a "buyer mints" marketplace](https://github.com/scaffold-eth/scaffold-eth/tree/buyer-mints-nft)
- - 🎲  [Learn about commit/reveal](https://github.com/scaffold-eth/scaffold-eth-examples/tree/commit-reveal-with-frontend)
- - ✍️  [Learn how ecrecover works](https://github.com/scaffold-eth/scaffold-eth-examples/tree/signature-recover)
- - 👩‍👩‍👧‍👧  [Build a multi-sig that uses off-chain signatures](https://github.com/scaffold-eth/scaffold-eth/tree/meta-multi-sig)
- - ⏳  [Extend the multi-sig to stream ETH](https://github.com/scaffold-eth/scaffold-eth/tree/streaming-meta-multi-sig)
- - ⚖️  [Learn how a simple DEX works](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90)
- - 🦍  [Ape into learning!](https://github.com/scaffold-eth/scaffold-eth/tree/aave-ape)
-
-# 💌 P.S.
-
-🌍 You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account and replace the value of `ALCHEMY_KEY = xxx` in `packages/react-app/src/constants.js` with your new key.
-
-📣 Make sure you update the `InfuraID` before you go to production. Huge thanks to [Infura](https://infura.io/) for our special account that fields 7m req/day!
-
-# 🏃💨 Speedrun Ethereum
-Register as a builder [here](https://speedrunethereum.com) and start on some of the challenges and build a portfolio.
-
-# 💬 Support Chat
-
-Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) or buidlguidl [discord](https://discord.gg/pRsr6rwG) to ask questions and find others building with 🏗 scaffold-eth!
-
----
-
-🙏 Please check out our [Gitcoin grant](https://gitcoin.co/grants/2851/scaffold-eth) too!
-
-### Automated with Gitpod
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/scaffold-eth/scaffold-eth)
+If you have any question, feel free to reach out on [twitter](https://twitter.com/wildanvin) ✌️
